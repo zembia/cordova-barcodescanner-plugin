@@ -23,7 +23,7 @@
     shell:SystemTray.IsVisible="True" CacheMode="BitmapCache" >
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Minimized">
-            <shell:ApplicationBarIconButton IconUri="/Assets1/AppBar/cancel.png" IsEnabled="True" Text="Cancel" Click="CancelScan"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.cancel.png" IsEnabled="True" Text="Cancel" Click="CancelScan"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
