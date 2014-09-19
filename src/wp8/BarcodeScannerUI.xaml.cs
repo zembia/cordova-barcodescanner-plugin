@@ -16,6 +16,7 @@ namespace WPCordovaClassLib.Cordova.Commands
     using System.Windows.Input;
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
+    using System.Windows.Threading;
 
     using Microsoft.Devices;
     using Microsoft.Phone.Tasks;
@@ -65,6 +66,15 @@ namespace WPCordovaClassLib.Cordova.Commands
             this.timer.Tick += (sender, args) => ScanForBarcode();
 
             this.BackKeyPress += CancelScan;
+
+            CameraButtons.ShutterKeyHalfPressed += StartCameraFocus;
+            camera.AutoFocusCompleted += StartCameraFocus;
+
+        }
+
+        private void StartCameraFocus(object sender, EventArgs eventArgs)
+        {
+            camera.Focus();
         }
 
         /// <summary>
@@ -94,6 +104,11 @@ namespace WPCordovaClassLib.Cordova.Commands
         {
             if (e.Succeeded)
             {
+                if (camera.IsFocusSupported)
+                {
+                    camera.Focus();
+                }
+
                 // Start scan process in separate thread
                 this.Dispatcher.BeginInvoke(() => timer.Start());
             }
@@ -132,8 +147,10 @@ namespace WPCordovaClassLib.Cordova.Commands
         /// </summary>
         private void CleanUp()
         {
+            CameraButtons.ShutterKeyHalfPressed -= StartCameraFocus;
             if (this.camera != null)
             {
+                this.camera.AutoFocusCompleted -= StartCameraFocus;
                 this.camera.Initialized -= this.CameraInitialized;
                 this.camera.Dispose();
                 this.camera = null;
