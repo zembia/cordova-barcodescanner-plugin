@@ -35,6 +35,7 @@
                 </VideoBrush>
             </Canvas.Background>
         </Canvas>
+        <Rectangle Margin="0" Stroke="Red" Height="2"/>
     </Grid>
 
 </phone:PhoneApplicationPage>
