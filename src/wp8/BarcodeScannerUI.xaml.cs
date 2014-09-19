@@ -12,11 +12,12 @@ namespace WPCordovaClassLib.Cordova.Commands
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
 
     using Microsoft.Devices;
-    using Microsoft.Phone.Controls;
     using Microsoft.Phone.Tasks;
 
     using ZXing;
@@ -41,6 +42,8 @@ namespace WPCordovaClassLib.Cordova.Commands
         /// </summary>
         private PhotoCamera camera;
 
+        private DispatcherTimer timer;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BarcodeScannerUI"/> class.
         /// This implementation not use camera autofocus.
@@ -57,6 +60,11 @@ namespace WPCordovaClassLib.Cordova.Commands
             // Bind events
             this.camera.Initialized += this.CameraInitialized;
             this.reader.ResultFound += this.ReaderResultFound;
+
+            this.timer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(100)};
+            this.timer.Tick += (sender, args) => ScanForBarcode();
+
+            this.BackKeyPress += CancelScan;
         }
 
         /// <summary>
@@ -87,27 +95,25 @@ namespace WPCordovaClassLib.Cordova.Commands
             if (e.Succeeded)
             {
                 // Start scan process in separate thread
-                Deployment.Current.Dispatcher.BeginInvoke(
-                    () =>
-                        {
-                            while (result == null)
-                            {
-                                var cameraBuffer = new WriteableBitmap(
-                                    (int)camera.PreviewResolution.Width,
-                                    (int)camera.PreviewResolution.Height);
-
-                                camera.GetPreviewBufferArgb32(cameraBuffer.Pixels);
-                                cameraBuffer.Invalidate();
-
-                                reader.Decode(cameraBuffer);
-                            }
-                        });
+                this.Dispatcher.BeginInvoke(() => timer.Start());
             }
             else
             {
                 this.result = new BarcodeScannerTask.ScanResult(TaskResult.None);
                 NavigationService.GoBack();
             }
+        }
+
+        private void ScanForBarcode()
+        {
+            var cameraBuffer = new WriteableBitmap(
+                                (int)camera.PreviewResolution.Width,
+                                (int)camera.PreviewResolution.Height);
+
+            camera.GetPreviewBufferArgb32(cameraBuffer.Pixels);
+            cameraBuffer.Invalidate();
+
+            reader.Decode(cameraBuffer);
         }
 
         /// <summary>
@@ -138,6 +144,22 @@ namespace WPCordovaClassLib.Cordova.Commands
                 this.reader.ResultFound -= this.ReaderResultFound;
                 this.reader = null;
             }
+
+            if (this.timer != null)
+            {
+                this.timer.Stop();
+                this.timer = null;
+            }
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void CancelScan(object sender, EventArgs eventArgs)
+        {
+            NavigationService.GoBack();
         }
     }
 }
