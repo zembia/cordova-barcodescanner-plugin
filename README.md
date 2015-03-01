@@ -1,18 +1,32 @@
 BarcodeScanner
 ==============
 
+## Description
+
 Cross-platform BarcodeScanner for Cordova / PhoneGap.
 
-Follows the [Cordova Plugin spec](https://github.com/apache/cordova-plugman/blob/master/plugin_spec.md), so that it works with [Plugman](https://github.com/apache/cordova-plugman).
 
-### Supported Platforms
+## Supported Platforms
 
 - Android
 - iOS
 - Windows 8
 - Windows Phone 8
 
-Note: the Android source for this project includes an Android Library Project.
+
+## Installation
+
+### Automatically (CLI / Plugman)
+
+```
+cordova plugin add de.martinreinhardt.cordova.plugins.barcodeScanner
+```
+
+
+## Details
+
+
+>The Android source for this project includes an Android Library Project.
 plugman currently doesn't support Library Project refs, so its been
 prebuilt as a jar library. Any updates to the Library Project should be
 committed with an updated jar.
@@ -129,16 +143,14 @@ Windows 8 implenemtation currently doesn't support encode functionality.
 ## Windows Phone 8 quirks ##
 Windows Phone 8 implenemtation currently doesn't support encode functionality.
 
-## Thanks on Github ##
-
-So many -- check out the original [iOS](https://github.com/phonegap/phonegap-plugins/tree/master/iOS/BarcodeScanner) and [Android](https://github.com/phonegap/phonegap-plugins/tree/master/Android/BarcodeScanner) repos.
-
 
 ## Licence ##
 
 The MIT License
 
 Copyright (c) 2010 Matt Kane
+
+Copyright (c) 2015 Martin Reinhardt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
