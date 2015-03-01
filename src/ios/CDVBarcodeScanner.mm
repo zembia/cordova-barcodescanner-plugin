@@ -2,6 +2,7 @@
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  *
+ * Copyright 2015 Martin Reinhardt. All rights reserved.
  * Copyright 2011 Matt Kane. All rights reserved.
  * Copyright (c) 2011, IBM Corporation
  */
@@ -21,7 +22,7 @@
 
 //------------------------------------------------------------------------------
 // Delegate to handle orientation functions
-// 
+//
 //------------------------------------------------------------------------------
 @protocol CDVBarcodeScannerOrientationDelegate <NSObject>
 
@@ -130,7 +131,7 @@
     
     callback = command.callbackId;
     
-    // We allow the user to define an alternate xib file for loading the overlay. 
+    // We allow the user to define an alternate xib file for loading the overlay.
     NSString *overlayXib = nil;
     if ( [command.arguments count] >= 1 )
     {
@@ -174,23 +175,16 @@
                                resultWithStatus: CDVCommandStatus_OK
                                messageAsDictionary: resultDict
                                ];
-    
-    NSString* js = [result toSuccessCallbackString:callback];
-    if (!flipped) {
-        [self writeJavascript:js];
-    }
+    [self.commandDelegate sendPluginResult:result callbackId:callback];
 }
 
 //--------------------------------------------------------------------------
 - (void)returnError:(NSString*)message callback:(NSString*)callback {
     CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus: CDVCommandStatus_OK
+                               resultWithStatus:CDVCommandStatus_ERROR
                                messageAsString: message
                                ];
-    
-    NSString* js = [result toErrorCallbackString:callback];
-    
-    [self writeJavascript:js];
+    [self.commandDelegate sendPluginResult:result callbackId:callback];
 }
 
 @end
@@ -249,8 +243,8 @@ parentViewController:(UIViewController*)parentViewController
 //--------------------------------------------------------------------------
 - (void)scanBarcode {
     
-//    self.captureSession = nil;
-//    self.previewLayer = nil;
+    //    self.captureSession = nil;
+    //    self.previewLayer = nil;
     NSString* errorMessage = [self setUpCaptureSession];
     if (errorMessage) {
         [self barcodeScanFailed:errorMessage];
@@ -268,8 +262,8 @@ parentViewController:(UIViewController*)parentViewController
 //--------------------------------------------------------------------------
 - (void)openDialog {
     [self.parentViewController
-     presentModalViewController:self.viewController
-     animated:YES
+     presentViewController:self.viewController
+     animated: YES completion:nil
      ];
 }
 
@@ -277,7 +271,7 @@ parentViewController:(UIViewController*)parentViewController
 - (void)barcodeScanDone {
     self.capturing = NO;
     [self.captureSession stopRunning];
-    [self.parentViewController dismissModalViewControllerAnimated: YES];
+    [self.parentViewController dismissViewControllerAnimated: YES completion:nil];
     
     // viewcontroller holding onto a reference to us, release them so they
     // will release us
@@ -324,9 +318,9 @@ parentViewController:(UIViewController*)parentViewController
     AVCaptureSession* captureSession = [[[AVCaptureSession alloc] init] autorelease];
     self.captureSession = captureSession;
     
-       AVCaptureDevice* __block device = nil;
+    AVCaptureDevice* __block device = nil;
     if (self.isFrontCamera) {
-    
+        
         NSArray* devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
         [devices enumerateObjectsUsingBlock:^(AVCaptureDevice *obj, NSUInteger idx, BOOL *stop) {
             if (obj.position == AVCaptureDevicePositionFront) {
@@ -338,7 +332,7 @@ parentViewController:(UIViewController*)parentViewController
         if (!device) return @"unable to obtain video capture device";
         
     }
-
+    
     
     AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
     if (!input) return @"unable to obtain video capture device input";
@@ -655,10 +649,10 @@ parentViewController:(UIViewController*)parentViewController
 //--------------------------------------------------------------------------
 - (void)dealloc {
     self.view = nil;
-//    self.processor = nil;
+    //    self.processor = nil;
     self.shutterPressed = NO;
     self.alternateXib = nil;
-    self.overlayView = nil;      
+    self.overlayView = nil;
     [super dealloc];
 }
 
@@ -671,8 +665,8 @@ parentViewController:(UIViewController*)parentViewController
     previewLayer.frame = self.view.bounds;
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
-    if ([previewLayer isOrientationSupported]) {
-        [previewLayer setOrientation:AVCaptureVideoOrientationPortrait];
+    if ([previewLayer.connection isVideoOrientationSupported]) {
+        [previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
     }
     
     [self.view.layer insertSublayer:previewLayer below:[[self.view.layer sublayers] objectAtIndex:0]];
@@ -684,7 +678,7 @@ parentViewController:(UIViewController*)parentViewController
 - (void)viewWillAppear:(BOOL)animated {
     
     // set video orientation to what the camera sees
-    self.processor.previewLayer.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    self.processor.previewLayer.connection.videoOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     // this fixes the bug when the statusbar is landscape, and the preview layer
     // starts up in portrait (not filling the whole view)
@@ -719,7 +713,7 @@ parentViewController:(UIViewController*)parentViewController
 }
 
 //--------------------------------------------------------------------------
-- (UIView *)buildOverlayViewFromXib 
+- (UIView *)buildOverlayViewFromXib
 {
     [[NSBundle mainBundle] loadNibNamed:self.alternateXib owner:self options:NULL];
     
@@ -729,7 +723,7 @@ parentViewController:(UIViewController*)parentViewController
         return nil;
     }
     
-    return self.overlayView;        
+    return self.overlayView;
 }
 
 //--------------------------------------------------------------------------
@@ -764,11 +758,11 @@ parentViewController:(UIViewController*)parentViewController
                     ];
     
     id flipCamera = [[[UIBarButtonItem alloc] autorelease]
-                       initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
-                       target:(id)self
-                       action:@selector(flipCameraButtonPressed:)
-                       ];
-
+                     initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+                     target:(id)self
+                     action:@selector(flipCameraButtonPressed:)
+                     ];
+    
     
 #if USE_SHUTTER
     id shutterButton = [[UIBarButtonItem alloc]
@@ -867,7 +861,7 @@ parentViewController:(UIViewController*)parentViewController
 #pragma mark CDVBarcodeScannerOrientationDelegate
 
 - (BOOL)shouldAutorotate
-{   
+{
     return NO;
 }
 
@@ -893,8 +887,7 @@ parentViewController:(UIViewController*)parentViewController
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
 {
     [CATransaction begin];
-    
-    self.processor.previewLayer.orientation = orientation;
+    self.processor.previewLayer.connection.videoOrientation = orientation;
     [self.processor.previewLayer layoutSublayers];
     self.processor.previewLayer.frame = self.view.bounds;
     
