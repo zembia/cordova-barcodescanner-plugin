@@ -19,7 +19,7 @@ Cross-platform BarcodeScanner for Cordova / PhoneGap.
 ### Automatically (CLI / Plugman)
 
 ```
-cordova plugin add de.martinreinhardt.cordova.plugins.barcodeScanner
+cordova plugin add cordova-plugin-barcodescanner
 ```
 
 
