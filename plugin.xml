@@ -24,11 +24,11 @@ SOFTWARE.
 -->
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-id="de.martinreinhardt.cordova.plugins.barcodeScanner"
-version="0.6.0">
+id="cordova-plugin-barcodescanner"
+version="0.7.0">
 
     <name>BarcodeScanner</name>
-    <description>Scans Barcodes.</description>
+    <description>Scans Barcodes</description>
     <license>MIT</license>
 
     <engines>
