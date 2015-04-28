@@ -1,9 +1,9 @@
 BarcodeScanner
 ==============
 
-## Description
+[![Build Status](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin.svg?branch=master)](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin)
 
-Cross-platform BarcodeScanner for Cordova / PhoneGap.
+> cross-platform BarcodeScanner for cordova
 
 
 ## Supported Platforms
@@ -15,8 +15,6 @@ Cross-platform BarcodeScanner for Cordova / PhoneGap.
 
 
 ## Installation
-
-### Automatically (CLI / Plugman)
 
 ```
 cordova plugin add cordova-plugin-barcodescanner
