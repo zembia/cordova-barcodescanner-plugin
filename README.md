@@ -1,7 +1,8 @@
 BarcodeScanner
 ==============
 
-[![Build Status](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin.svg?branch=master)](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin) [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=12908089)](https://www.bountysource.com/trackers/12908089-hypery2k-cordova-barcodescanner-plugin?utm_source=12908089&utm_medium=shield&utm_campaign=TRACKER_BADGE)
+[![Build Status](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin.svg?branch=master)](https://travis-ci.org/hypery2k/cordova-barcodescanner-plugin) [![Build status](https://ci.appveyor.com/api/projects/status/298mrueury1ntrf4?svg=true)](https://ci.appveyor.com/project/hypery2k/cordova-barcodescanner-plugin)
+ [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=12908089)](https://www.bountysource.com/trackers/12908089-hypery2k-cordova-barcodescanner-plugin?utm_source=12908089&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 
 > cross-platform BarcodeScanner for cordova
 
@@ -20,8 +21,21 @@ BarcodeScanner
 cordova plugin add cordova-plugin-barcodescanner
 ```
 
+## Development
 
-## Details
+### Running integration tests
+
+execute the `runIntegrationTests.sh` script for a specific platform:
+
+```
+PLATFORM='android' ./runIntegrationTests.sh
+```
+
+```
+PLATFORM='ios' ./runIntegrationTests.sh
+```
+
+### Details
 
 
 >The Android source for this project includes an Android Library Project.
