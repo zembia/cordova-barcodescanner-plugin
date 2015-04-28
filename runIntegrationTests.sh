@@ -8,5 +8,6 @@ npm install
 bower install
 grunt "ci:$PLATFORM" "$PLATFORM"
 cordova plugin add ../cordova-barcodescanner-plugin/
+grunt "ci:$PLATFORM" "$PLATFORM"
 echo "Changing back to plugin directy: "$cwd
 cd $cwd
