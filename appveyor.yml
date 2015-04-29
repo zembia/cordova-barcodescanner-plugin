@@ -18,5 +18,5 @@ test_script:
   - grunt build
   - cordova platform add wp8
   - cordova build wp8
-  - cordova plugin add cordova-barcodescanner-plugin
+  - cordova plugin add ../cordova-barcodescanner-plugin
   - cordova build wp8
