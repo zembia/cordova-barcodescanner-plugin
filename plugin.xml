@@ -33,7 +33,9 @@ version="0.7.0">
 
     <engines>
         <engine name="cordova" version=">=3.0.0" />
-    </engines>    
+    </engines>
+    
+    <dependency id="cordova-plugin-compat" version="^1.0.0"/>
 
     <js-module src="www/barcodescanner.js" name="BarcodeScanner">
         <clobbers target="cordova.plugins.barcodeScanner" />
@@ -115,7 +117,7 @@ version="0.7.0">
             search: (src/android/LibraryProject/(.+?)/[^/]+)$
             replace: <source-file src="$1" target-dir="$2"/>
         -->
-        
+
         <source-file src="src/android/LibraryProject/res/drawable/launcher_icon.png" target-dir="res/drawable"/>
         <source-file src="src/android/LibraryProject/res/drawable/share_via_barcode.png" target-dir="res/drawable"/>
         <source-file src="src/android/LibraryProject/res/drawable/shopper_icon.png" target-dir="res/drawable"/>

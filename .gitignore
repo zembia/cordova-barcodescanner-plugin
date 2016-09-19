@@ -2,3 +2,8 @@
 bin/
 .classpath
 .project
+
+*.log
+test/android/.gradle/*
+tmp/*
+test/android/build/*
