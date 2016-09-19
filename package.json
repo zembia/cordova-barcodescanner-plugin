@@ -31,5 +31,9 @@
     "posttest": "jsdoc -c jsdoc.json && jsdoc2md www/barcodescanner.js | sed s/barcodeScannerPlugin/cordova.plugins.barcodeScanner/g | sed s/barcodeScannerPlugin/cordova.plugins.barcodeScanner/g > PLUGIN_USAGE.MD"
   },
   "author": "Martin Reinhardt",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jsdoc": "3.4.0",
+    "jsdoc-to-markdown": "1.3.3"
+  }
 }
