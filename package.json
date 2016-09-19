@@ -20,7 +20,8 @@
     "barcodescanner",
     "ecosystem:cordova",
     "cordova-android",
-    "cordova-ios",
+    "cordova-ios",,
+    "cordova-osx",
     "cordova-wp8",
     "cordova-windows8"
   ],
