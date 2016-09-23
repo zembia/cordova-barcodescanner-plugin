@@ -2,7 +2,7 @@
 bin/
 .classpath
 .project
-
+.idea/*
 *.log
 test/android/.gradle/*
 tmp/*
