@@ -1,3 +1,8 @@
+properties properties: [
+  [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '30', numToKeepStr: '10']],
+  [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/hypery2k/cordova-barcodescanner-plugin/'],
+]
+
 node {
   node('cordova') {
 
