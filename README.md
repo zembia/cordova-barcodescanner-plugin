@@ -19,6 +19,11 @@ BarcodeScanner
 ```
 cordova plugin add cordova-plugin-barcodescanner
 ```
+Or if you want to use the development version (nightly build), which maybe not stable!:
+
+```
+cordova plugin add cordova-plugin-barcodescanner@next
+```
 
 ## Development
 
