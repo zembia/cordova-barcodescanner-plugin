@@ -37,9 +37,9 @@ node {
            sh "npm version ${newVersion} --no-git-tag-version && npm publish --tag next"
         }
         
-      } catch (e){
-         mail subject: 'Error on build', to: 'contact@martinreinhardt-online.de'
-         throw e
+      } catch (e) {
+        mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}): Error on build", to: 'github@martinreinhardt-online.de', body: "Please go to ${env.BUILD_URL}."
+        throw e
       }
    }
 
