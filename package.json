@@ -34,6 +34,6 @@
   "license": "MIT",
   "devDependencies": {
     "jsdoc": "3.4.2",
-    "jsdoc-to-markdown": "2.0.1"
+    "jsdoc-to-markdown": "3.0.0"
   }
 }
