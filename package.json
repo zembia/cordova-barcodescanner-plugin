@@ -33,7 +33,7 @@
   "author": "Martin Reinhardt",
   "license": "MIT",
   "devDependencies": {
-    "jsdoc": "3.4.2",
+    "jsdoc": "3.5.0",
     "jsdoc-to-markdown": "3.0.0"
   }
 }
