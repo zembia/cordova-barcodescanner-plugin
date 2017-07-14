@@ -23,9 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-plugin-barcodescanner"
-        version="0.7.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-barcodescanner" version="0.7.1">
 
     <name>BarcodeScanner</name>
     <description>Scans Barcodes</description>
@@ -67,8 +65,7 @@ SOFTWARE.
     <!-- android -->
     <platform name="android">
 
-        <source-file src="src/android/com/phonegap/plugins/barcodescanner/BarcodeScanner.java"
-                     target-dir="src/com/phonegap/plugins/barcodescanner"/>
+        <source-file src="src/android/com/phonegap/plugins/barcodescanner/BarcodeScanner.java" target-dir="src/com/phonegap/plugins/barcodescanner"/>
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="BarcodeScanner">
@@ -77,27 +74,19 @@ SOFTWARE.
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity
-                    android:name="com.google.zxing.client.android.CaptureActivity"
-                    android:screenOrientation="landscape"
-                    android:clearTaskOnLaunch="true"
-                    android:configChanges="orientation|keyboardHidden"
-                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                    android:windowSoftInputMode="stateAlwaysHidden"
-                    android:exported="false">
+            <activity xmlns:android="" android:name="com.google.zxing.client.android.CaptureActivity" android:screenOrientation="landscape" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:windowSoftInputMode="stateAlwaysHidden" android:exported="false">
                 <intent-filter>
                     <action android:name="com.phonegap.plugins.barcodescanner.SCAN"/>
                     <category android:name="android.intent.category.DEFAULT"/>
                 </intent-filter>
             </activity>
-            <activity android:name="com.google.zxing.client.android.encode.EncodeActivity"
-                      android:label="@string/share_name">
+            <activity xmlns:android="" android:name="com.google.zxing.client.android.encode.EncodeActivity" android:label="@string/share_name">
                 <intent-filter>
                     <action android:name="com.phonegap.plugins.barcodescanner.ENCODE"/>
                     <category android:name="android.intent.category.DEFAULT"/>
                 </intent-filter>
             </activity>
-            <activity android:name="com.google.zxing.client.android.HelpActivity" android:label="@string/share_name">
+            <activity xmlns:android="" android:name="com.google.zxing.client.android.HelpActivity" android:label="@string/share_name">
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
@@ -106,8 +95,8 @@ SOFTWARE.
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.CAMERA"/>
-            <uses-permission android:name="android.permission.FLASHLIGHT"/>
+            <uses-permission xmlns:android="" android:name="android.permission.CAMERA"/>
+            <uses-permission xmlns:android="" android:name="android.permission.FLASHLIGHT"/>
             <!-- Not required to allow users to work around this -->
             <uses-feature android:name="android.hardware.camera" android:required="false"/>
         </config-file>
@@ -123,24 +112,18 @@ SOFTWARE.
         <source-file src="src/android/LibraryProject/res/drawable/launcher_icon.png" target-dir="res/drawable"/>
         <source-file src="src/android/LibraryProject/res/drawable/share_via_barcode.png" target-dir="res/drawable"/>
         <source-file src="src/android/LibraryProject/res/drawable/shopper_icon.png" target-dir="res/drawable"/>
-        <source-file src="src/android/LibraryProject/res/drawable-hdpi/launcher_icon.png"
-                     target-dir="res/drawable-hdpi"/>
-        <source-file src="src/android/LibraryProject/res/drawable-hdpi/shopper_icon.png"
-                     target-dir="res/drawable-hdpi"/>
-        <source-file src="src/android/LibraryProject/res/drawable-xhdpi/launcher_icon.png"
-                     target-dir="res/drawable-xhdpi"/>
-        <source-file src="src/android/LibraryProject/res/drawable-xxhdpi/launcher_icon.png"
-                     target-dir="res/drawable-xxhdpi"/>
+        <source-file src="src/android/LibraryProject/res/drawable-hdpi/launcher_icon.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/LibraryProject/res/drawable-hdpi/shopper_icon.png" target-dir="res/drawable-hdpi"/>
+        <source-file src="src/android/LibraryProject/res/drawable-xhdpi/launcher_icon.png" target-dir="res/drawable-xhdpi"/>
+        <source-file src="src/android/LibraryProject/res/drawable-xxhdpi/launcher_icon.png" target-dir="res/drawable-xxhdpi"/>
         <source-file src="src/android/LibraryProject/res/layout/bookmark_picker_list_item.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/capture.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/encode.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/help.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/history_list_item.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/search_book_contents.xml" target-dir="res/layout"/>
-        <source-file src="src/android/LibraryProject/res/layout/search_book_contents_header.xml"
-                     target-dir="res/layout"/>
-        <source-file src="src/android/LibraryProject/res/layout/search_book_contents_list_item.xml"
-                     target-dir="res/layout"/>
+        <source-file src="src/android/LibraryProject/res/layout/search_book_contents_header.xml" target-dir="res/layout"/>
+        <source-file src="src/android/LibraryProject/res/layout/search_book_contents_list_item.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout/share.xml" target-dir="res/layout"/>
         <source-file src="src/android/LibraryProject/res/layout-land/encode.xml" target-dir="res/layout-land"/>
         <source-file src="src/android/LibraryProject/res/layout-land/share.xml" target-dir="res/layout-land"/>
