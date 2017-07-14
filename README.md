@@ -25,6 +25,16 @@ Or if you want to use the development version (nightly build), which maybe not s
 cordova plugin add cordova-plugin-barcodescanner@next
 ```
 
+On Android you have to the following entry to config.xml
+
+```
+<config-file target="AndroidManifest.xml" parent="/*" mode="merge">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+</config-file>
+```
+
 ## Development
 
 ### Running integration tests
