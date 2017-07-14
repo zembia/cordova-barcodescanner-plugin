@@ -4,6 +4,8 @@ bin/
 .project
 .idea/*
 *.log
+dist
+node_modules
 test/android/.gradle/*
 tmp/*
 test/android/build/*
