@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-barcodescanner" version="0.7.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-barcodescanner" version="0.7.2">
 
     <name>BarcodeScanner</name>
     <description>Scans Barcodes</description>
@@ -97,9 +97,9 @@ SOFTWARE.
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission xmlns:android="" android:name="android.permission.CAMERA"/>
             <uses-permission xmlns:android="" android:name="android.permission.FLASHLIGHT"/>
-            <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+            <uses-permission xmlns:android="" android:name="android.permission.WRITE_SETTINGS"/>
             <!-- Not required to allow users to work around this -->
-            <uses-feature android:name="android.hardware.camera" android:required="false"/>
+            <uses-feature xmlns:android="" android:name="android.hardware.camera" android:required="false"/>
         </config-file>
 
         <source-file src="src/android/com.google.zxing.client.android.captureactivity.jar" target-dir="libs"/>
