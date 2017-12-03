@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
+import android.net.Uri;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -88,33 +89,44 @@ public class BarcodeScanner extends CordovaPlugin {
      */
     @Override
     public boolean execute(String action, JSONArray rawArgs, CallbackContext callbackContext) {
-      this.callbackContext = callbackContext;
-      this.action = action;
-      this.rawArgs = rawArgs;
-      if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP + 1) {
-          Class systemClass = Settings.System.class;
-          try {
-              Method canWriteMethod = systemClass.getDeclaredMethod("canWrite", Context.class);
-              boolean retVal = (Boolean) canWriteMethod.invoke(null, this.cordova.getActivity());
-              Log.d(LOG_TAG, "Can Write Settings: " + retVal);
-              if (!retVal && !action.equals("requestWriteSettings") && !action.equals("getWriteSettings")) {
-                  //can't write Settings
-                  this.callbackContext.error("write settings: false");
-                  return false;
-              }
-              this.writeSettings = retVal;
-          } catch (Exception ignored) {
-              Log.e(LOG_TAG, "Could not perform permission check");
-              this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ILLEGAL_ACCESS_EXCEPTION));
-          }
-      }
-      if (!this.hasPermissions()) {
-          PermissionHelper.requestPermissions(this, 0, BarcodeScanner.permissions);
-          return true;
-      } else {
-          // pre Android 6 behaviour
-          return executeInternal(action, rawArgs, callbackContext);
-      }
+        this.callbackContext = callbackContext;
+        this.action = action;
+        this.rawArgs = rawArgs;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP + 1) {
+            Class systemClass = Settings.System.class;
+            try {
+                boolean retVal;
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    retVal = Settings.System.canWrite(this.cordova.getActivity().getApplicationContext());
+                    if(!retVal) {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                        intent.setData(Uri.parse("package:" + this.cordova.getActivity().getPackageName()));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        this.cordova.getActivity().startActivity(intent);
+                    }
+                } else {
+                    Method canWriteMethod = systemClass.getDeclaredMethod("canWrite", Context.class);
+                    retVal = (Boolean) canWriteMethod.invoke(null, this.cordova.getActivity());
+                }
+                Log.d(LOG_TAG, "Can Write Settings: " + retVal);
+                if (!retVal && !action.equals("requestWriteSettings") && !action.equals("getWriteSettings")) {
+                    //can't write Settings
+                    this.callbackContext.error("write settings: false");
+                    return false;
+                }
+                this.writeSettings = retVal;
+            } catch (Exception ignored) {
+                Log.e(LOG_TAG, "Could not perform permission check");
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ILLEGAL_ACCESS_EXCEPTION));
+            }
+        }
+        if (!this.hasPermissions()) {
+            PermissionHelper.requestPermissions(this, 0, BarcodeScanner.permissions);
+            return true;
+        } else {
+            // pre Android 6 behaviour
+            return executeInternal(action, rawArgs, callbackContext);
+        }
       // Returning false results in a "MethodNotFound" error.
     }
 
