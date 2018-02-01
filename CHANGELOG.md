@@ -1,10 +1,15 @@
+<a name="0.7.4"></a>
+## [0.7.4](https://github.com/hypery2k/cordova-barcodescanner-plugin/compare/v0.7.3...v0.7.4) (2018-02-01)
+
+
+
 <a name="0.7.3"></a>
 ## [0.7.3](https://github.com/hypery2k/cordova-barcodescanner-plugin/compare/v0.7.2...v0.7.3) (2017-09-28)
 
 
 ### Bug Fixes
 
-* **xml-error:** Use newer plugin helper xml ([38d16c1](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/38d16c1))
+* **xml-error:** Use newer plugin helper xml ([38d16c1](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/38d16c1)), closes [#27](https://github.com/hypery2k/cordova-barcodescanner-plugin/issues/27)
 
 
 
@@ -14,7 +19,7 @@
 
 ### Bug Fixes
 
-* **permission-error:** Corrected permissions ([287115d](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/287115d))
+* **permission-error:** Corrected permissions ([287115d](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/287115d)), closes [#12](https://github.com/hypery2k/cordova-barcodescanner-plugin/issues/12)
 
 
 
@@ -24,7 +29,7 @@
 
 ### Bug Fixes
 
-* **permission-error:** Corrected permissions ([1a498f6](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/1a498f6))
+* **permission-error:** Corrected permissions ([1a498f6](https://github.com/hypery2k/cordova-barcodescanner-plugin/commit/1a498f6)), closes [#12](https://github.com/hypery2k/cordova-barcodescanner-plugin/issues/12) [#19](https://github.com/hypery2k/cordova-barcodescanner-plugin/issues/19)
 
 
 
